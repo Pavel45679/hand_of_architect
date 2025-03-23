@@ -1,6 +1,6 @@
 #pragma once
-#include "hoaIRW.h"
-#include <unique_ptr>
+#include "hoaReaderWriter/hoaIRW.h"
+#include <memory>
 
 enum class hoaIRWType
 {
@@ -9,5 +9,6 @@ enum class hoaIRWType
 
 class hoaIRWFabrica {
 public:
-	static std::unique_ptr<hoaIRW> get(hoaIRWType type);
+	static std::unique_ptr<hoaIR> getR(hoaIRWType type, char* buff, size_t size);
+	static std::unique_ptr<hoaIW> getW(hoaIRWType type);
 };

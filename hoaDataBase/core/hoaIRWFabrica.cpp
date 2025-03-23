@@ -1,11 +1,20 @@
 #include "hoaIRWFabrica.h"
-#include "hoaSimpleTextIRW.h"
+#include "hoaSimpleTextIR.h"
+#include "hoaSimpleTextIW.h"
 #include <cassert>
 
-static std::unique_ptr<hoaIRW> hoaIRWFabrica::get(hoaIRWType type) {
-	if (type == DataBaseType::SimpleText)
+std::unique_ptr<hoaIR> hoaIRWFabrica::getR(hoaIRWType type, char* buff, size_t size) {
+	if (type == hoaIRWType::SimpleText)
 	{
-		return  std::make_unique< hoaSimpleTextIRW>();
+		return  std::make_unique< hoaSimpleTextIR>(buff, size);
+	}
+	assert(0);
+}
+
+std::unique_ptr<hoaIW> hoaIRWFabrica::getW(hoaIRWType type) {
+	if (type == hoaIRWType::SimpleText)
+	{
+		return std::make_unique<hoaSimpleTextIW>();
 	}
 	assert(0);
 }

@@ -1,4 +1,4 @@
-#include "hoaIRW.h"
+#include "hoaReaderWriter/hoaIRW.h"
 
 void hoaIRW::store(hoaPoint& p)
 {

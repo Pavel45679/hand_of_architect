@@ -1,8 +1,8 @@
 #pragma once
 #include "hoaObject.h"
 #include <string>
-#include <unique_ptr>
-#include "hoaIRW.h"
+#include <memory>
+#include "hoaReaderWriter/hoaIRW.h"
 #include <unordered_map>
 #include "hoaIRWFabrica.h"
 
@@ -12,11 +12,12 @@ public:
 	void open(std::string path);
 	void save();
 	void close();
-	std::unique_ptr<hoaObject> getObject(unsigned int index);
+	//std::unique_ptr<hoaObject> getObject(unsigned int index);
+	void addObject(hoaObject* obj);
 
 private:
 	std::string mPath;
 	bool mIsOpen = false;
-	std::unordered_map<unsigned int, std::unique_ptr<hoaIRW>> mHoaIRWMap;
+	std::unordered_map<unsigned int, std::vector<char>> mMap;
 	hoaIRWType mType;
 };

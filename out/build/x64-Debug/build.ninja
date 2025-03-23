@@ -79,7 +79,7 @@ build cmake_object_order_depends_target_hoaMath: phony || hoaMath\CMakeFiles\hoa
 
 build hoaMath\CMakeFiles\hoaMath.dir\core\hoaPoint.cpp.obj: CXX_COMPILER__hoaMath_unscanned_Debug D$:\hand_of_architect\hoaMath\core\hoaPoint.cpp || cmake_object_order_depends_target_hoaMath
   DEFINES = -DhoaMath_EXPORTS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
   INCLUDES = -ID:\hand_of_architect\hoaMath\core
   OBJECT_DIR = hoaMath\CMakeFiles\hoaMath.dir
   OBJECT_FILE_DIR = hoaMath\CMakeFiles\hoaMath.dir\core
@@ -88,7 +88,7 @@ build hoaMath\CMakeFiles\hoaMath.dir\core\hoaPoint.cpp.obj: CXX_COMPILER__hoaMat
 
 build hoaMath\CMakeFiles\hoaMath.dir\core\hoaVector.cpp.obj: CXX_COMPILER__hoaMath_unscanned_Debug D$:\hand_of_architect\hoaMath\core\hoaVector.cpp || cmake_object_order_depends_target_hoaMath
   DEFINES = -DhoaMath_EXPORTS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
   INCLUDES = -ID:\hand_of_architect\hoaMath\core
   OBJECT_DIR = hoaMath\CMakeFiles\hoaMath.dir
   OBJECT_FILE_DIR = hoaMath\CMakeFiles\hoaMath.dir\core
@@ -155,7 +155,7 @@ build cmake_object_order_depends_target_hoaModel: phony || hoaModel\CMakeFiles\h
 
 build hoaModel\CMakeFiles\hoaModel.dir\core\hoaModel.cpp.obj: CXX_COMPILER__hoaModel_unscanned_Debug D$:\hand_of_architect\hoaModel\core\hoaModel.cpp || cmake_object_order_depends_target_hoaModel
   DEFINES = -DhoaModel_EXPORTS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
   INCLUDES = -ID:\hand_of_architect\hoaModel\core -ID:\hand_of_architect\hoaMath\core
   OBJECT_DIR = hoaModel\CMakeFiles\hoaModel.dir
   OBJECT_FILE_DIR = hoaModel\CMakeFiles\hoaModel.dir\core
@@ -164,7 +164,7 @@ build hoaModel\CMakeFiles\hoaModel.dir\core\hoaModel.cpp.obj: CXX_COMPILER__hoaM
 
 build hoaModel\CMakeFiles\hoaModel.dir\core\hoaObject.cpp.obj: CXX_COMPILER__hoaModel_unscanned_Debug D$:\hand_of_architect\hoaModel\core\hoaObject.cpp || cmake_object_order_depends_target_hoaModel
   DEFINES = -DhoaModel_EXPORTS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
   INCLUDES = -ID:\hand_of_architect\hoaModel\core -ID:\hand_of_architect\hoaMath\core
   OBJECT_DIR = hoaModel\CMakeFiles\hoaModel.dir
   OBJECT_FILE_DIR = hoaModel\CMakeFiles\hoaModel.dir\core
@@ -173,7 +173,7 @@ build hoaModel\CMakeFiles\hoaModel.dir\core\hoaObject.cpp.obj: CXX_COMPILER__hoa
 
 build hoaModel\CMakeFiles\hoaModel.dir\core\hoaPlane.cpp.obj: CXX_COMPILER__hoaModel_unscanned_Debug D$:\hand_of_architect\hoaModel\core\hoaPlane.cpp || cmake_object_order_depends_target_hoaModel
   DEFINES = -DhoaModel_EXPORTS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
   INCLUDES = -ID:\hand_of_architect\hoaModel\core -ID:\hand_of_architect\hoaMath\core
   OBJECT_DIR = hoaModel\CMakeFiles\hoaModel.dir
   OBJECT_FILE_DIR = hoaModel\CMakeFiles\hoaModel.dir\core
@@ -182,7 +182,7 @@ build hoaModel\CMakeFiles\hoaModel.dir\core\hoaPlane.cpp.obj: CXX_COMPILER__hoaM
 
 build hoaModel\CMakeFiles\hoaModel.dir\core\hoaReaderWriter\hoaIRW.cpp.obj: CXX_COMPILER__hoaModel_unscanned_Debug D$:\hand_of_architect\hoaModel\core\hoaReaderWriter\hoaIRW.cpp || cmake_object_order_depends_target_hoaModel
   DEFINES = -DhoaModel_EXPORTS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
   INCLUDES = -ID:\hand_of_architect\hoaModel\core -ID:\hand_of_architect\hoaMath\core
   OBJECT_DIR = hoaModel\CMakeFiles\hoaModel.dir
   OBJECT_FILE_DIR = hoaModel\CMakeFiles\hoaModel.dir\core\hoaReaderWriter
@@ -249,7 +249,34 @@ build cmake_object_order_depends_target_hoaDataBase: phony || hoaDataBase\CMakeF
 
 build hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaDataBase.cpp.obj: CXX_COMPILER__hoaDataBase_unscanned_Debug D$:\hand_of_architect\hoaDataBase\core\hoaDataBase.cpp || cmake_object_order_depends_target_hoaDataBase
   DEFINES = -DhoaDataBase_EXPORTS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
+  INCLUDES = -ID:\hand_of_architect\hoaDataBase\core -ID:\hand_of_architect\hoaMath\core -ID:\hand_of_architect\hoaModel\core
+  OBJECT_DIR = hoaDataBase\CMakeFiles\hoaDataBase.dir
+  OBJECT_FILE_DIR = hoaDataBase\CMakeFiles\hoaDataBase.dir\core
+  TARGET_COMPILE_PDB = hoaDataBase\CMakeFiles\hoaDataBase.dir\
+  TARGET_PDB = hoaDataBase\hoaDataBase.pdb
+
+build hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaIRWFabrica.cpp.obj: CXX_COMPILER__hoaDataBase_unscanned_Debug D$:\hand_of_architect\hoaDataBase\core\hoaIRWFabrica.cpp || cmake_object_order_depends_target_hoaDataBase
+  DEFINES = -DhoaDataBase_EXPORTS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
+  INCLUDES = -ID:\hand_of_architect\hoaDataBase\core -ID:\hand_of_architect\hoaMath\core -ID:\hand_of_architect\hoaModel\core
+  OBJECT_DIR = hoaDataBase\CMakeFiles\hoaDataBase.dir
+  OBJECT_FILE_DIR = hoaDataBase\CMakeFiles\hoaDataBase.dir\core
+  TARGET_COMPILE_PDB = hoaDataBase\CMakeFiles\hoaDataBase.dir\
+  TARGET_PDB = hoaDataBase\hoaDataBase.pdb
+
+build hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaSimpleTextIR.cpp.obj: CXX_COMPILER__hoaDataBase_unscanned_Debug D$:\hand_of_architect\hoaDataBase\core\hoaSimpleTextIR.cpp || cmake_object_order_depends_target_hoaDataBase
+  DEFINES = -DhoaDataBase_EXPORTS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
+  INCLUDES = -ID:\hand_of_architect\hoaDataBase\core -ID:\hand_of_architect\hoaMath\core -ID:\hand_of_architect\hoaModel\core
+  OBJECT_DIR = hoaDataBase\CMakeFiles\hoaDataBase.dir
+  OBJECT_FILE_DIR = hoaDataBase\CMakeFiles\hoaDataBase.dir\core
+  TARGET_COMPILE_PDB = hoaDataBase\CMakeFiles\hoaDataBase.dir\
+  TARGET_PDB = hoaDataBase\hoaDataBase.pdb
+
+build hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaSimpleTextIW.cpp.obj: CXX_COMPILER__hoaDataBase_unscanned_Debug D$:\hand_of_architect\hoaDataBase\core\hoaSimpleTextIW.cpp || cmake_object_order_depends_target_hoaDataBase
+  DEFINES = -DhoaDataBase_EXPORTS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
   INCLUDES = -ID:\hand_of_architect\hoaDataBase\core -ID:\hand_of_architect\hoaMath\core -ID:\hand_of_architect\hoaModel\core
   OBJECT_DIR = hoaDataBase\CMakeFiles\hoaDataBase.dir
   OBJECT_FILE_DIR = hoaDataBase\CMakeFiles\hoaDataBase.dir\core
@@ -264,7 +291,7 @@ build hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaDataBase.cpp.obj: CXX_COMPI
 #############################################
 # Link the shared library hoaDataBase\hoaDataBase.dll
 
-build hoaDataBase\hoaDataBase.dll hoaDataBase\hoaDataBase.lib: CXX_SHARED_LIBRARY_LINKER__hoaDataBase_Debug hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaDataBase.cpp.obj
+build hoaDataBase\hoaDataBase.dll hoaDataBase\hoaDataBase.lib: CXX_SHARED_LIBRARY_LINKER__hoaDataBase_Debug hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaDataBase.cpp.obj hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaIRWFabrica.cpp.obj hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaSimpleTextIR.cpp.obj hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaSimpleTextIW.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -315,7 +342,7 @@ build hoaDataBase\rebuild_cache: phony hoaDataBase\CMakeFiles\rebuild_cache.util
 build cmake_object_order_depends_target_hoaView: phony || cmake_object_order_depends_target_hoaDataBase cmake_object_order_depends_target_hoaMath cmake_object_order_depends_target_hoaModel
 
 build hoaView\CMakeFiles\hoaView.dir\src\main.cpp.obj: CXX_COMPILER__hoaView_unscanned_Debug D$:\hand_of_architect\hoaView\src\main.cpp || cmake_object_order_depends_target_hoaView
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
   INCLUDES = -ID:\hand_of_architect\hoaModel\core -ID:\hand_of_architect\hoaMath\core -ID:\hand_of_architect\hoaDataBase\core
   OBJECT_DIR = hoaView\CMakeFiles\hoaView.dir
   OBJECT_FILE_DIR = hoaView\CMakeFiles\hoaView.dir\src

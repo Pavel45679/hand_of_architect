@@ -2,13 +2,13 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "hoaModel/hoaModel.dll"
+			"path" : "hoaMath/hoaMath.dll"
 		},
 		{
-			"path" : "hoaModel/hoaModel.lib"
+			"path" : "hoaMath/hoaMath.lib"
 		},
 		{
-			"path" : "hoaModel/hoaModel.pdb"
+			"path" : "hoaMath/hoaMath.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -21,7 +21,7 @@
 		],
 		"files" : 
 		[
-			"hoaModel/CMakeLists.txt"
+			"hoaMath/CMakeLists.txt"
 		],
 		"nodes" : 
 		[
@@ -48,21 +48,17 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17"
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20"
 				}
 			],
 			"defines" : 
 			[
 				{
-					"define" : "hoaModel_EXPORTS"
+					"define" : "hoaMath_EXPORTS"
 				}
 			],
 			"includes" : 
 			[
-				{
-					"backtrace" : 2,
-					"path" : "D:/hand_of_architect/hoaModel/core"
-				},
 				{
 					"backtrace" : 2,
 					"path" : "D:/hand_of_architect/hoaMath/core"
@@ -75,18 +71,16 @@
 				[
 					1
 				],
-				"standard" : "17"
+				"standard" : "20"
 			},
 			"sourceIndexes" : 
 			[
 				0,
-				1,
-				2,
-				3
+				1
 			]
 		}
 	],
-	"id" : "hoaModel::@d129c97b83e33c190c36",
+	"id" : "hoaMath::@7463f0079ee947b78cc3",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -102,12 +96,12 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "hoaModel",
-	"nameOnDisk" : "hoaModel.dll",
+	"name" : "hoaMath",
+	"nameOnDisk" : "hoaMath.dll",
 	"paths" : 
 	{
-		"build" : "hoaModel",
-		"source" : "hoaModel"
+		"build" : "hoaMath",
+		"source" : "hoaMath"
 	},
 	"sourceGroups" : 
 	[
@@ -116,19 +110,15 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1,
-				2,
-				3
+				1
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				4,
-				5,
-				6,
-				7
+				2,
+				3
 			]
 		}
 	],
@@ -137,45 +127,23 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "hoaModel/core/hoaModel.cpp",
+			"path" : "hoaMath/core/hoaPoint.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "hoaModel/core/hoaObject.cpp",
+			"path" : "hoaMath/core/hoaVector.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "hoaModel/core/hoaPlane.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "hoaModel/core/hoaReaderWriter/hoaIRW.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "hoaModel/core/hoaModel.h",
+			"path" : "hoaMath/core/hoaPoint.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "hoaModel/core/hoaObject.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "hoaModel/core/hoaPlane.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "hoaModel/core/hoaReaderWriter/hoaIRW.h",
+			"path" : "hoaMath/core/hoaVector.h",
 			"sourceGroupIndex" : 1
 		}
 	],
