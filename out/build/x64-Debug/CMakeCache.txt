@@ -210,6 +210,9 @@ hoaDataBase_BINARY_DIR:STATIC=D:/hand_of_architect/out/build/x64-Debug/hoaDataBa
 //Value Computed by CMake
 hoaDataBase_IS_TOP_LEVEL:STATIC=OFF
 
+//Dependencies for the target
+hoaDataBase_LIB_DEPENDS:STATIC=general;hoaModel;
+
 //Value Computed by CMake
 hoaDataBase_SOURCE_DIR:STATIC=D:/hand_of_architect/hoaDataBase
 

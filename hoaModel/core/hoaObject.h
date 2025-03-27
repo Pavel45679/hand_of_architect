@@ -1,10 +1,11 @@
 #pragma once
 #include "hoaReaderWriter/hoaIRW.h"
 
-class __declspec(dllexport) hoaObject {
+class hoaObject {
 public:
 	hoaObject();
 	virtual ~hoaObject() = default;
 	void printMessage();
-	virtual void store(hoaIRW& rw) = 0;
+	virtual void store(hoaIRW* rw) = 0;
+	virtual int type() = 0;
 };

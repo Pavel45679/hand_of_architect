@@ -105,11 +105,11 @@ build hoaMath\CMakeFiles\hoaMath.dir\core\hoaVector.cpp.obj: CXX_COMPILER__hoaMa
 
 build hoaMath\hoaMath.dll hoaMath\hoaMath.lib: CXX_SHARED_LIBRARY_LINKER__hoaMath_Debug hoaMath\CMakeFiles\hoaMath.dir\core\hoaPoint.cpp.obj hoaMath\CMakeFiles\hoaMath.dir\core\hoaVector.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL  /DEF:hoaMath\CMakeFiles\hoaMath.dir\.\exports.def
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = hoaMath\CMakeFiles\hoaMath.dir
   POST_BUILD = cd .
-  PRE_LINK = cd .
+  PRE_LINK = C:\Windows\system32\cmd.exe /C ""C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E __create_def D:\hand_of_architect\out\build\x64-Debug\hoaMath\CMakeFiles\hoaMath.dir\.\exports.def D:\hand_of_architect\out\build\x64-Debug\hoaMath\CMakeFiles\hoaMath.dir\.\exports.def.objs && cd D:\hand_of_architect\out\build\x64-Debug"
   RESTAT = 1
   TARGET_COMPILE_PDB = hoaMath\CMakeFiles\hoaMath.dir\
   TARGET_FILE = hoaMath\hoaMath.dll
@@ -199,11 +199,11 @@ build hoaModel\CMakeFiles\hoaModel.dir\core\hoaReaderWriter\hoaIRW.cpp.obj: CXX_
 
 build hoaModel\hoaModel.dll hoaModel\hoaModel.lib: CXX_SHARED_LIBRARY_LINKER__hoaModel_Debug hoaModel\CMakeFiles\hoaModel.dir\core\hoaModel.cpp.obj hoaModel\CMakeFiles\hoaModel.dir\core\hoaObject.cpp.obj hoaModel\CMakeFiles\hoaModel.dir\core\hoaPlane.cpp.obj hoaModel\CMakeFiles\hoaModel.dir\core\hoaReaderWriter\hoaIRW.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL  /DEF:hoaModel\CMakeFiles\hoaModel.dir\.\exports.def
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = hoaModel\CMakeFiles\hoaModel.dir
   POST_BUILD = cd .
-  PRE_LINK = cd .
+  PRE_LINK = C:\Windows\system32\cmd.exe /C ""C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E __create_def D:\hand_of_architect\out\build\x64-Debug\hoaModel\CMakeFiles\hoaModel.dir\.\exports.def D:\hand_of_architect\out\build\x64-Debug\hoaModel\CMakeFiles\hoaModel.dir\.\exports.def.objs && cd D:\hand_of_architect\out\build\x64-Debug"
   RESTAT = 1
   TARGET_COMPILE_PDB = hoaModel\CMakeFiles\hoaModel.dir\
   TARGET_FILE = hoaModel\hoaModel.dll
@@ -245,7 +245,7 @@ build hoaModel\rebuild_cache: phony hoaModel\CMakeFiles\rebuild_cache.util
 #############################################
 # Order-only phony target for hoaDataBase
 
-build cmake_object_order_depends_target_hoaDataBase: phony || hoaDataBase\CMakeFiles\hoaDataBase.dir
+build cmake_object_order_depends_target_hoaDataBase: phony || cmake_object_order_depends_target_hoaModel
 
 build hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaDataBase.cpp.obj: CXX_COMPILER__hoaDataBase_unscanned_Debug D$:\hand_of_architect\hoaDataBase\core\hoaDataBase.cpp || cmake_object_order_depends_target_hoaDataBase
   DEFINES = -DhoaDataBase_EXPORTS
@@ -291,13 +291,13 @@ build hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaSimpleTextIW.cpp.obj: CXX_C
 #############################################
 # Link the shared library hoaDataBase\hoaDataBase.dll
 
-build hoaDataBase\hoaDataBase.dll hoaDataBase\hoaDataBase.lib: CXX_SHARED_LIBRARY_LINKER__hoaDataBase_Debug hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaDataBase.cpp.obj hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaIRWFabrica.cpp.obj hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaSimpleTextIR.cpp.obj hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaSimpleTextIW.cpp.obj
+build hoaDataBase\hoaDataBase.dll hoaDataBase\hoaDataBase.lib: CXX_SHARED_LIBRARY_LINKER__hoaDataBase_Debug hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaDataBase.cpp.obj hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaIRWFabrica.cpp.obj hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaSimpleTextIR.cpp.obj hoaDataBase\CMakeFiles\hoaDataBase.dir\core\hoaSimpleTextIW.cpp.obj | hoaModel\hoaModel.lib || hoaModel\hoaModel.dll
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL
-  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL  /DEF:hoaDataBase\CMakeFiles\hoaDataBase.dir\.\exports.def
+  LINK_LIBRARIES = hoaModel\hoaModel.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = hoaDataBase\CMakeFiles\hoaDataBase.dir
   POST_BUILD = cd .
-  PRE_LINK = cd .
+  PRE_LINK = C:\Windows\system32\cmd.exe /C ""C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E __create_def D:\hand_of_architect\out\build\x64-Debug\hoaDataBase\CMakeFiles\hoaDataBase.dir\.\exports.def D:\hand_of_architect\out\build\x64-Debug\hoaDataBase\CMakeFiles\hoaDataBase.dir\.\exports.def.objs && cd D:\hand_of_architect\out\build\x64-Debug"
   RESTAT = 1
   TARGET_COMPILE_PDB = hoaDataBase\CMakeFiles\hoaDataBase.dir\
   TARGET_FILE = hoaDataBase\hoaDataBase.dll

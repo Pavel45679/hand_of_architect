@@ -4,7 +4,7 @@
 #include <utility>
 #include <vector>
 
-class __declspec(dllexport) hoaIRW {
+class hoaIRW {
 public:
 	virtual ~hoaIRW() = default;
 	virtual void store(int& i) = 0;
@@ -13,16 +13,16 @@ public:
 	virtual void store(hoaVector& v);
 };
 
-class __declspec(dllexport) hoaIR : public hoaIRW {
+class hoaIR : public hoaIRW {
 public:
 	hoaIR(char* buff, size_t size) :mBuff(buff), mSize(size){};
 
 protected:
-	char * mBuff;
+	char* mBuff;
 	size_t mSize;
 };
 
-class __declspec(dllexport) hoaIW : public hoaIRW {
+class hoaIW : public hoaIRW {
 public:
 	virtual std::vector<char> get() = 0;
 };
