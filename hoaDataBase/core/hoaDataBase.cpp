@@ -86,13 +86,30 @@ void hoaDataBase::open(std::string path)
 	pImpl->mIsOpen = true;
 }
 
-void hoaDataBase::save() {
-	if (pImpl->mIsOpen)
+void hoaDataBase::save()
+{
+	if (!pImpl->mIsOpen || pImpl->mPath.empty())
 		return;
 
 	std::ofstream dbFile(pImpl->mPath, std::ios::out | std::ios::binary);
 	if (!dbFile)
 		return;
+
+	std::unique_ptr<hoaIW> headerWriter = hoaIRWFabrica::getW(pImpl->mType);
+
+	int objectCount = static_cast<int>(pImpl->mHeader.size());
+	headerWriter->store(objectCount);
+
+	for (const auto& [id, item] : pImpl->mHeader) {
+		headerWriter->store(id);
+		headerWriter->store(item.addres);
+		headerWriter->store(item.type);
+	}
+
+	std::vector<char> headerData = headerWriter->get();
+	dbFile.write(headerData.data(), headerData.size());
+	dbFile.write(pImpl->mFileBuffer.data(), pImpl->mFileBuffer.size());
+	pImpl->mIsOpen = dbFile.good();
 }
 
 void hoaDataBase::close() {
