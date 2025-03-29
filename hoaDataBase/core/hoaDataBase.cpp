@@ -16,7 +16,7 @@ public:
 	std::string mPath;
 	bool mIsOpen = false;
 	std::vector<char> mFileBuffer;
-	std::unordered_map<unsigned int, hoaHeaderItem> mHeader;
+	std::unordered_map<int, hoaHeaderItem> mHeader;
 	hoaIRWType mType;
 	int mMaxId;
 };
@@ -100,8 +100,9 @@ void hoaDataBase::save()
 	int objectCount = static_cast<int>(pImpl->mHeader.size());
 	headerWriter->store(objectCount);
 
-	for (const auto& [id, item] : pImpl->mHeader) {
-		headerWriter->store(id);
+	for (auto& [id, item] : pImpl->mHeader) {
+		int i = id;
+		headerWriter->store(i);
 		headerWriter->store(item.addres);
 		headerWriter->store(item.type);
 	}

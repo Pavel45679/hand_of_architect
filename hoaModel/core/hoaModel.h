@@ -1,16 +1,8 @@
-#ifndef MYLIBRARY_H
-#define MYLIBRARY_H
-
-#ifdef _WIN32
-#ifdef MYLIBRARY_EXPORTS
-#define MYLIBRARY_API __declspec(dllexport)
+#ifdef HOAMODEL_EXPORTS
+#define HOAMODEL_API __declspec(dllexport)
 #else
-#define MYLIBRARY_API __declspec(dllimport)
-#endif
-#else
-#define MYLIBRARY_API
+#define HOAMODEL_API __declspec(dllimport)
 #endif
 
-MYLIBRARY_API void printMessage();
+HOAMODEL_API void printMessage();
 
-#endif // MYLIBRARY_H
