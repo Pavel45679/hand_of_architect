@@ -8,3 +8,8 @@ hoaObject::hoaObject() {
 void hoaObject::printMessage() {
 	std::cout << "Hello from hoaObject!" << std::endl;
 }
+
+//int hoaObject::getId() const
+//{
+//	return mId;
+//}

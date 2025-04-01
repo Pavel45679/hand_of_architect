@@ -14,8 +14,9 @@ public:
 	void open(std::string path);
 	void save();
 	void close();
+
 	std::unique_ptr<hoaObject> getObject(unsigned int index);
-	void addObject(hoaObject* obj);
+	int addObject(hoaObject* obj);
 
 private:
 	class Impl;

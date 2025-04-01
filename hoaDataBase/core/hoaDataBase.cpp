@@ -1,6 +1,7 @@
 #include "hoaDataBase.h"
 #include <fstream>
 #include "hoaPlane.h"
+#include "hoaLine.h"
 
 static std::string tho_suffix = ".tho";
 
@@ -18,7 +19,7 @@ public:
 	std::vector<char> mFileBuffer;
 	std::unordered_map<int, hoaHeaderItem> mHeader;
 	hoaIRWType mType;
-	int mMaxId;
+	int mMaxId = 0;
 };
 
 hoaDataBase::hoaDataBase() : pImpl(new Impl)
@@ -126,23 +127,30 @@ std::unique_ptr<hoaObject> hoaDataBase::getObject(unsigned int index)
 	if (pImpl->mHeader.find(index) != pImpl->mHeader.end())
 	{
 		const hoaHeaderItem& item = pImpl->mHeader[index];
-		std::unique_ptr<hoaIR> r = hoaIRWFabrica::getR(pImpl->mType, pImpl->mFileBuffer.data()+ item.addres, 10);
 
 		if (item.type == 1)
 		{
 			re = std::make_unique<hoaPlane>();
 		}
+		else if (item.type == 2)
+		{
+			re = std::make_unique<hoaLine>();
+		}
+
+		std::unique_ptr<hoaIR> r = hoaIRWFabrica::getR(pImpl->mType, pImpl->mFileBuffer.data() + item.addres, 10);
 		re->store(r.get());
 	}
 	return re;
 }
 
-void hoaDataBase::addObject(hoaObject* obj)
+int hoaDataBase::addObject(hoaObject* obj)
 {
 	std::unique_ptr<hoaIW> w = hoaIRWFabrica::getW(pImpl->mType);
 	obj->store(w.get());
 	std::vector<char> vec = w->get();
-	pImpl->mHeader[++pImpl->mMaxId] = hoaHeaderItem((int)pImpl->mFileBuffer.size(), obj->type());
+	const int id = ++pImpl->mMaxId;
+	pImpl->mHeader[id] = hoaHeaderItem((int)pImpl->mFileBuffer.size(), obj->type());
 	pImpl->mFileBuffer.reserve(pImpl->mFileBuffer.size() + vec.size());
 	pImpl->mFileBuffer.insert(pImpl->mFileBuffer.end(), vec.begin(), vec.end());
+	return id;
 }

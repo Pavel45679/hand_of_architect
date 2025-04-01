@@ -3,15 +3,15 @@
 #include "hoaPoint.h"
 #include "hoaVector.h"
 
-class hoaPlane: public hoaObject {
+class hoaLine: public hoaObject {
 public:
 	void store(hoaIRW* rw) override;
 	int type() override;
 
-	void setCenter(hoaPoint center);
-	hoaPoint getCenter() const;
+	void setStart(hoaPoint start);
+	hoaPoint getStart() const;
 
 private:
-	hoaPoint _center;
-	hoaVector _normal;
+	hoaPoint _start;
+	hoaVector _direct;
 };

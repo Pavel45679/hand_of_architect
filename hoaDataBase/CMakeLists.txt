@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 project(hoaDataBase)
 
+if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDebug$<$<CONFIG:Debug>:DLL>")
+endif()
+
 file(GLOB_RECURSE HEADERS "core/*.h")
 file(GLOB_RECURSE SOURCES "core/*.cpp")
 

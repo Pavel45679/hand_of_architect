@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
 project(hoaUnitTest)
 
+if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDebug$<$<CONFIG:Debug>:DLL>")
+endif()
 enable_testing()
 option(BUILD_TESTS "Build unit tests" ON)
 
@@ -25,6 +28,8 @@ set(GTEST_INCLUDE_DIR "${GTEST_SOURCE_DIR}/googletest/include")
 add_executable(${PROJECT_NAME}
   tests/hoaDataBase_test.cpp
 )
+
+target_link_options(hoaUnitTest PRIVATE "/NODEFAULTLIB:LIBCMTD")
 
 target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_SOURCE_DIR}/hoaModel/core
