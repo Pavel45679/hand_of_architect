@@ -1,39 +1,34 @@
 #include "hoaDataBase.h"
+
+#include "hoaDataBaseGuard.h"
+
 #include <fstream>
-#include "hoaPlane.h"
-#include "hoaLine.h"
+#include <iostream>
+#include <string>
+#include <sstream>
 
-static std::string tho_suffix = ".tho";
-
-struct hoaHeaderItem
-{
-	int addres;
-	int type;
-};
 
 class hoaDataBase::Impl
 {
 public:
 	std::string mPath;
 	bool mIsOpen = false;
-	std::vector<char> mFileBuffer;
-	std::unordered_map<int, hoaHeaderItem> mHeader;
-	hoaIRWType mType;
+	std::map<int, std::string> mChanck;
 	int mMaxId = 0;
 };
 
-hoaDataBase::hoaDataBase() : pImpl(new Impl)
+hoaDataBase::hoaDataBase() : pImpl(new Impl), mDataBaseGuard(std::make_shared<hoaDataBaseGuard>(this))
 {
 }
 
 hoaDataBase::~hoaDataBase()
 {
+	mDataBaseGuard->invalid();
 	delete pImpl;
 }
 
-void hoaDataBase::create(std::string path, hoaIRWType type)
+void hoaDataBase::create(std::string path)
 {
-	pImpl->mType = type;
 	if (pImpl->mIsOpen)
 		return;
 
@@ -52,39 +47,35 @@ void hoaDataBase::open(std::string path)
 	if (pImpl->mIsOpen)
 		return;
 
-	if (path.ends_with(tho_suffix))
-	{
-		pImpl->mType = hoaIRWType::SimpleText;
-	}
-
-	std::ifstream dbFile(path, std::ios::in | std::ios::binary);
+	std::ifstream dbFile(path);
 	if (!dbFile)
 		return;
 
-	std::streamsize size = dbFile.tellg();
-	dbFile.seekg(0, std::ios::beg);
+	if (!dbFile.is_open())
+		return;
 
-	pImpl->mFileBuffer.resize(size+1);
-	dbFile.read(&pImpl->mFileBuffer[0], size);
+	std::string line;
+	while (std::getline(dbFile, line)) {
+		std::istringstream iss(line);
+		int index;
+		std::string text;
+		if (!(iss >> index))
+			continue;
 
-	std::unique_ptr<hoaIR> r = hoaIRWFabrica::getR(pImpl->mType, pImpl->mFileBuffer.data(), size);
-	int count = 0;
-	pImpl->mMaxId = 0;
-	r->store(count);
-	for (int i = 0; i < count; i++)
-	{
-		int id = 0;
-		int addres = 0;
-		int type = 0;
-		r->store(id);
-		r->store(addres);
-		r->store(type);
-		pImpl->mHeader[id] = hoaHeaderItem(addres, type);
-		pImpl->mMaxId = std::max(pImpl->mMaxId, id);
+		if (iss.peek() == ' ')
+			iss.ignore();
+
+		std::getline(iss, text);
+
+		if (index > pImpl->mMaxId)
+			pImpl->mMaxId = index;
+
+		pImpl->mChanck[index] = std::move(text);
 	}
 
 	pImpl->mPath = path;
 	pImpl->mIsOpen = true;
+	dbFile.close();
 }
 
 void hoaDataBase::save()
@@ -92,65 +83,89 @@ void hoaDataBase::save()
 	if (!pImpl->mIsOpen || pImpl->mPath.empty())
 		return;
 
-	std::ofstream dbFile(pImpl->mPath, std::ios::out | std::ios::binary);
-	if (!dbFile)
+	std::string tempPath = pImpl->mPath + ".tmp";
+	std::ofstream dbFile(tempPath, std::ios::out | std::ios::trunc);
+
+	if (!dbFile.is_open())
 		return;
 
-	std::unique_ptr<hoaIW> headerWriter = hoaIRWFabrica::getW(pImpl->mType);
-
-	int objectCount = static_cast<int>(pImpl->mHeader.size());
-	headerWriter->store(objectCount);
-
-	for (auto& [id, item] : pImpl->mHeader) {
-		int i = id;
-		headerWriter->store(i);
-		headerWriter->store(item.addres);
-		headerWriter->store(item.type);
+	for (const auto& [index, text] : pImpl->mChanck) {
+		dbFile << index << " " << text << "\n";
 	}
 
-	std::vector<char> headerData = headerWriter->get();
-	dbFile.write(headerData.data(), headerData.size());
-	dbFile.write(pImpl->mFileBuffer.data(), pImpl->mFileBuffer.size());
-	pImpl->mIsOpen = dbFile.good();
+	dbFile.close();
+
+	std::remove(pImpl->mPath.c_str());
+	std::rename(tempPath.c_str(), pImpl->mPath.c_str());
+
+}
+
+void hoaDataBase::saveAs(std::string newPath)
+{
+	if (!pImpl->mIsOpen)
+		return;
+
+	pImpl->mPath = std::move(newPath);
+
+	save();
 }
 
 void hoaDataBase::close() {
-	if (pImpl->mIsOpen)
+	if (!pImpl->mIsOpen)
 		return;
 
+	save();
+	pImpl->mChanck.clear();
+	pImpl->mMaxId = 0;
+	pImpl->mPath.clear();
 	pImpl->mIsOpen = false;
 }
 
 std::unique_ptr<hoaObject> hoaDataBase::getObject(unsigned int index)
 {
-	std::unique_ptr<hoaObject> re;
-	if (pImpl->mHeader.find(index) != pImpl->mHeader.end())
-	{
-		const hoaHeaderItem& item = pImpl->mHeader[index];
+	if (pImpl->mChanck.find(index) == pImpl->mChanck.end())
+		return {};
 
-		if (item.type == 1)
-		{
-			re = std::make_unique<hoaPlane>();
-		}
-		else if (item.type == 2)
-		{
-			re = std::make_unique<hoaLine>();
-		}
+	std::istringstream iss(pImpl->mChanck[index]);
+	int type;
+	if (!(iss >> type))
+		return {};
 
-		std::unique_ptr<hoaIR> r = hoaIRWFabrica::getR(pImpl->mType, pImpl->mFileBuffer.data() + item.addres, 10);
-		re->store(r.get());
-	}
-	return re;
+	if (iss.peek() == ' ')
+		iss.ignore();
+
+	std::string text;
+	std::getline(iss, text);
+	std::unique_ptr<hoaObject> obj = create(type);
+	obj->store(std::move(text));
+	obj->setDataBaseGuard(mDataBaseGuard);
+	return obj;
 }
 
 int hoaDataBase::addObject(hoaObject* obj)
 {
-	std::unique_ptr<hoaIW> w = hoaIRWFabrica::getW(pImpl->mType);
-	obj->store(w.get());
-	std::vector<char> vec = w->get();
-	const int id = ++pImpl->mMaxId;
-	pImpl->mHeader[id] = hoaHeaderItem((int)pImpl->mFileBuffer.size(), obj->type());
-	pImpl->mFileBuffer.reserve(pImpl->mFileBuffer.size() + vec.size());
-	pImpl->mFileBuffer.insert(pImpl->mFileBuffer.end(), vec.begin(), vec.end());
-	return id;
+	if (!obj)
+		return 0;
+
+	int type = obj->type();
+
+	std::ostringstream oss;
+	oss << type << " " << obj->store();
+
+	pImpl->mChanck[++pImpl->mMaxId] = oss.str();
+	obj->setDataBaseGuard(mDataBaseGuard);
+	return pImpl->mMaxId;
+}
+
+void hoaDataBase::modifyObject(hoaObject* obj) {
+	if (!obj)
+		return;
+
+	int index = obj->getId();
+	int type = obj->type();
+
+	std::ostringstream oss;
+	oss << type << " " << obj->store();
+
+	pImpl->mChanck[index] = oss.str();
 }
