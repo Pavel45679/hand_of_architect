@@ -9,17 +9,12 @@ class hoaPoint;
 class hoaOpenGlDrawer : public hoaIDrawer {
 
 public:
-	hoaOpenGlDrawer(HDC hdc, int w, int h);
+	hoaOpenGlDrawer(HDC hDC);
 	~hoaOpenGlDrawer();
 
 	void drawLine(const hoaPoint& start, const hoaPoint& end) override;
-	void beginFrame();
-	void endFrame();
-
+	void beginFrame() override;
+	void endFrame() override;
 private:
-	HDC hDC;
-	int width, height;
-
-	bool setupPixelFormat();
-	void setupOrtho2D();
+	HDC mHDC;
 };

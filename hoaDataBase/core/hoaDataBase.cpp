@@ -1,6 +1,8 @@
 #include "hoaDataBase.h"
 
 #include "hoaDataBaseGuard.h"
+#include "hoaReader.h"
+#include "hoaWriter.h"
 
 #include <fstream>
 #include <iostream>
@@ -97,7 +99,6 @@ void hoaDataBase::save()
 
 	std::remove(pImpl->mPath.c_str());
 	std::rename(tempPath.c_str(), pImpl->mPath.c_str());
-
 }
 
 void hoaDataBase::saveAs(std::string newPath)
@@ -126,18 +127,11 @@ std::unique_ptr<hoaObject> hoaDataBase::getObject(unsigned int index)
 	if (pImpl->mChanck.find(index) == pImpl->mChanck.end())
 		return {};
 
-	std::istringstream iss(pImpl->mChanck[index]);
+	hoaReader reader(pImpl->mChanck[index]);
 	int type;
-	if (!(iss >> type))
-		return {};
-
-	if (iss.peek() == ' ')
-		iss.ignore();
-
-	std::string text;
-	std::getline(iss, text);
+	reader.store(type);
 	std::unique_ptr<hoaObject> obj = create(type);
-	obj->store(std::move(text));
+	obj->store(reader);
 	obj->setDataBaseGuard(mDataBaseGuard);
 	return obj;
 }
@@ -148,11 +142,11 @@ int hoaDataBase::addObject(hoaObject* obj)
 		return 0;
 
 	int type = obj->type();
+	hoaWriter writer;
+	writer.store(type);
+	obj->store(writer);
 
-	std::ostringstream oss;
-	oss << type << " " << obj->store();
-
-	pImpl->mChanck[++pImpl->mMaxId] = oss.str();
+	pImpl->mChanck[++pImpl->mMaxId] = writer.getText();
 	obj->setDataBaseGuard(mDataBaseGuard);
 	return pImpl->mMaxId;
 }
@@ -164,8 +158,9 @@ void hoaDataBase::modifyObject(hoaObject* obj) {
 	int index = obj->getId();
 	int type = obj->type();
 
-	std::ostringstream oss;
-	oss << type << " " << obj->store();
+	hoaWriter writer;
+	writer.store(type);
+	obj->store(writer);
 
-	pImpl->mChanck[index] = oss.str();
+	pImpl->mChanck[index] = writer.getText();
 }

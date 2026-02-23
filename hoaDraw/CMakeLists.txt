@@ -5,7 +5,7 @@ if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDebug$<$<CONFIG:Debug>:DLL>")
 endif()
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
@@ -14,6 +14,10 @@ file(GLOB_RECURSE SOURCES "core/*.cpp")
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
 
+add_dependencies(${PROJECT_NAME} hoaMath)
+
+target_link_libraries(hoaDraw PRIVATE hoaMath)
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/core
-								${CMAKE_SOURCE_DIR}/hoaMath/core)
+							${CMAKE_SOURCE_DIR}/hoaMath/core)
 

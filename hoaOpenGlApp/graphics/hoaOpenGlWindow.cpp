@@ -1,9 +1,8 @@
 #include "hoaOpenGlWindow.h"
-#include "hoaOpenGlDrawer.h"
-#include "hoaSceneManager.h"
-#include "hoaTestGraphicObject.h"
 #include <windows.h>
 #include <GL/gl.h>
+#include "hoaContext.h"
+#include "hoaSceneManager.h"
 
 LRESULT CALLBACK hoaOpenGlWindow::WindowProc(HWND hWnd, UINT message,
 	WPARAM wParam, LPARAM lParam) {
@@ -27,7 +26,7 @@ LRESULT CALLBACK hoaOpenGlWindow::WindowProc(HWND hWnd, UINT message,
 }
 
 hoaOpenGlWindow::hoaOpenGlWindow(HINSTANCE hInst) :
-	hInstance(hInst), hWnd(NULL), hDC(NULL), hRC(NULL), mDrawer(NULL), mScene(NULL) {
+	hInstance(hInst), hWnd(NULL), hDC(NULL), hRC(NULL) {
 }
 
 hoaOpenGlWindow::~hoaOpenGlWindow() {
@@ -37,19 +36,16 @@ hoaOpenGlWindow::~hoaOpenGlWindow() {
 		hRC = NULL;
 	}
 
-	delete mScene;
-	delete mDrawer;
-
 	if (hDC) {
 		ReleaseDC(hWnd, hDC);
 		hDC = NULL;
 	}
 }
 
-bool hoaOpenGlWindow::create(const wchar_t* title, int width, int height) {
+bool hoaOpenGlWindow::create() {
 	WNDCLASSW wc = {};
 	wc.lpfnWndProc = WindowProc;
-	wc.hInstance = hInstance ? hInstance : GetModuleHandle(NULL);
+	wc.hInstance = hInstance ? hInstance : GetModuleHandleW(NULL);
 	wc.lpszClassName = L"OpenGLWindowClass";
 	wc.style = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
@@ -60,14 +56,14 @@ bool hoaOpenGlWindow::create(const wchar_t* title, int width, int height) {
 		return false;
 	}
 
-	RECT rect = { 0, 0, width, height };
+	RECT rect = { 0, 0, 800, 600 };
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 	int windowWidth = rect.right - rect.left;
 	int windowHeight = rect.bottom - rect.top;
 
 	hWnd = CreateWindowW(
 		L"OpenGLWindowClass",
-		title,
+		L"Hand of Arhitecter",
 		WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		windowWidth, windowHeight,
@@ -144,21 +140,7 @@ bool hoaOpenGlWindow::create(const wchar_t* title, int width, int height) {
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
-	glViewport(0, 0, width, height);
-
-	mDrawer = new hoaOpenGlDrawer(hDC, width, height);
-	if (!mDrawer) {
-		return false;
-	}
-
-	mScene = new hoaSceneManager(mDrawer);
-	if (!mScene) {
-		delete mDrawer;
-		mDrawer = NULL;
-		return false;
-	}
-
-	createScene();
+	glViewport(0, 0, 800, 600);
 
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
@@ -166,7 +148,7 @@ bool hoaOpenGlWindow::create(const wchar_t* title, int width, int height) {
 	return true;
 }
 
-void hoaOpenGlWindow::run() {
+void hoaOpenGlWindow::run(hoaContext& context) {
 	MSG msg = {};
 	DWORD lastTick = GetTickCount();
 
@@ -186,8 +168,8 @@ void hoaOpenGlWindow::run() {
 
 			if (deltaTime > 0.1f) deltaTime = 0.1f;
 
-			if (mScene) {
-				mScene->drawAll();
+			if (context.mScene) {
+				context.mScene->drawAll();
 			}
 		}
 	}
@@ -204,7 +186,7 @@ LRESULT hoaOpenGlWindow::handleMessage(UINT message, WPARAM wParam, LPARAM lPara
 		return 0;
 
 	case WM_SIZE:
-		if (mDrawer && wParam != SIZE_MINIMIZED) {
+		if (/*mDrawer &&*/ wParam != SIZE_MINIMIZED) {
 			int width = LOWORD(lParam);
 			int height = HIWORD(lParam);
 			glViewport(0, 0, width, height);
@@ -219,9 +201,9 @@ LRESULT hoaOpenGlWindow::handleMessage(UINT message, WPARAM wParam, LPARAM lPara
 		PAINTSTRUCT ps;
 		BeginPaint(hWnd, &ps);
 
-		if (mScene) {
+		/*if (mScene) {
 			mScene->drawAll();
-		}
+		}*/
 
 		EndPaint(hWnd, &ps);
 		return 0;
@@ -231,13 +213,6 @@ LRESULT hoaOpenGlWindow::handleMessage(UINT message, WPARAM wParam, LPARAM lPara
 		if (wParam == VK_ESCAPE) {
 			PostQuitMessage(0);
 		}
-		else if (wParam == 'R') {
-			if (mScene) {
-				mScene->clear();
-				createScene();
-				InvalidateRect(hWnd, NULL, FALSE);
-			}
-		}
 		return 0;
 
 	case WM_ERASEBKGND:
@@ -245,8 +220,4 @@ LRESULT hoaOpenGlWindow::handleMessage(UINT message, WPARAM wParam, LPARAM lPara
 	}
 
 	return DefWindowProc(hWnd, message, wParam, lParam);
-}
-
-void hoaOpenGlWindow::createScene() {
-	mScene->addObject<hoaTestGraphicObject>();
 }

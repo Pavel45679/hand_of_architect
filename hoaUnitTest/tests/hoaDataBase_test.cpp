@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include "hoaDataBase.h"
+#include "hoaObject.h"
+#include "hoaIStorer.h"
 #include <filesystem>
 
 class HoaDataBaseTest : public ::testing::Test {
@@ -29,12 +31,8 @@ TEST_F(HoaDataBaseTest, CreateAndOpenDatabase) {
 class testInt : public hoaObject {
 public:
 	void printMessage() {};
-	void store(std::string text) { 
-		std::istringstream iss(text);
-		iss >> value;
-	};
-	std::string store() {
-		return  std::to_string(value);
+	void store(hoaIStorer& storer) override {
+		storer.store(value);
 	}
 	int type() { return 11; }
 	int value;

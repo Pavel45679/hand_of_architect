@@ -5,7 +5,7 @@ if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDebug$<$<CONFIG:Debug>:DLL>")
 endif()
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
@@ -22,18 +22,26 @@ if(WIN32)
     )
 endif()
 
-add_dependencies(${PROJECT_NAME} hoaDraw)
+add_dependencies(${PROJECT_NAME} hoaDraw
+								hoaDataBase
+								hoaMath
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 						${CMAKE_SOURCE_DIR}/hoaMath/core
-						${CMAKE_SOURCE_DIR}/hoaDraw/core)
+						${CMAKE_SOURCE_DIR}/hoaDraw/core
+						${CMAKE_SOURCE_DIR}/hoaDataBase/core)
 
 target_include_directories(hoaOpenGlApp PRIVATE ${GLFW_INCLUDE_DIRS})
 target_link_libraries(hoaOpenGlApp OpenGL::GL
-						hoaDraw)
+						hoaDraw
+						hoaDataBase
+						hoaMath)
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
     $<TARGET_FILE:hoaDraw>
+    $<TARGET_FILE:hoaDataBase>
+    $<TARGET_FILE:hoaMath>
     $<TARGET_FILE_DIR:${PROJECT_NAME}>
 )

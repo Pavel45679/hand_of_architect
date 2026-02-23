@@ -1,10 +1,17 @@
 cmake_minimum_required(VERSION 3.10)
 project(HandOfArchitect)
 
-set(CMAKE_CXX_STANDARD 20)
+if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDebugDLL")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /MD")
+endif()
+
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
+add_subdirectory(hoaMath)
 add_subdirectory(hoaDataBase)
 add_subdirectory(libs/googletest-1.14.0)
 add_subdirectory(hoaUnitTest)

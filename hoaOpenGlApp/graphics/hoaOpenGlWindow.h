@@ -4,23 +4,23 @@
 
 class hoaOpenGlDrawer;
 class hoaSceneManager;
+class hoaContext;
 
 class hoaOpenGlWindow {
 
 public:
 	hoaOpenGlWindow(HINSTANCE hInst);
 	~hoaOpenGlWindow();
-	bool create(const wchar_t* title, int width, int height);
-	void run();
-
+	bool create();
+	void run(hoaContext& context);
+	HDC getHDC() {
+		return hDC;
+	}
 private:
 	static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	LRESULT handleMessage(UINT message, WPARAM wParam, LPARAM lParam);
-	void createScene();
 	HINSTANCE hInstance;
 	HWND hWnd;
 	HDC hDC;
 	HGLRC hRC;
-	hoaOpenGlDrawer* mDrawer;
-	hoaSceneManager* mScene;
 };

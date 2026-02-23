@@ -10,4 +10,9 @@ file(GLOB_RECURSE SOURCES "core/*.cpp")
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/core)
+add_dependencies(${PROJECT_NAME} hoaMath)
+
+target_link_libraries(hoaDataBase PRIVATE hoaMath)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/core
+							${CMAKE_SOURCE_DIR}/hoaMath/core)

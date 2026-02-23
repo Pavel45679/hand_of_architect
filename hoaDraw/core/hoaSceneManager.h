@@ -7,7 +7,7 @@ class hoaIDrawer;
 
 class hoaSceneManager {
 public:
-	hoaSceneManager(hoaIDrawer* d);
+	hoaSceneManager(hoaIDrawer& d);
 
 	template<typename T, typename... Args>
 	void addObject(Args&&... args) {
@@ -17,5 +17,5 @@ public:
 	void clear();
 private:
 	std::vector<std::unique_ptr<hoaGraphicObject>> mObjects;
-	hoaIDrawer* mDrawer;
+	hoaIDrawer& mDrawer;
 };

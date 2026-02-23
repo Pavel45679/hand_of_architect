@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 project(hoaUnitTest)
 
-if(MSVC)
-    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDebug$<$<CONFIG:Debug>:DLL>")
-endif()
 enable_testing()
 option(BUILD_TESTS "Build unit tests" ON)
 
@@ -32,13 +29,16 @@ add_executable(${PROJECT_NAME}
 target_link_options(hoaUnitTest PRIVATE "/NODEFAULTLIB:LIBCMTD")
 
 target_include_directories(${PROJECT_NAME} PRIVATE
+  ${CMAKE_SOURCE_DIR}/hoaMath/core
   ${CMAKE_SOURCE_DIR}/hoaDataBase/core
   ${GTEST_INCLUDE_DIR}
 )
 message(STATUS "GTest source dir:  ${GTEST_INCLUDE_DIR}")
-add_dependencies(${PROJECT_NAME} hoaDataBase)
+add_dependencies(${PROJECT_NAME} hoaDataBase
+                                    hoaMath)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
+  hoaMath
   hoaDataBase
   gtest_main
   gtest
@@ -51,6 +51,7 @@ add_test(
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    $<TARGET_FILE:hoaMath>
     $<TARGET_FILE:hoaDataBase>
     $<TARGET_FILE_DIR:${PROJECT_NAME}>
 )
